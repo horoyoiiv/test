@@ -162,5 +162,80 @@ unit.mytest > methodB STARTED
 unit.mytest > methodB SKIPPED
 ```
 
+<br/>
+
+Expected Exceptions
+--------------------
+테스트 실행 시 **예상되는 예외**가 발생하여야 테스트 통과.
+```
+@Test(expected = NullPointerException.class)
+```
+* 예외 발생 시 test pass.  
+```java
+@Test(expected = NullPointerException.class)
+public void methodC() {
+    String str = null;
+    System.out.println(str.length());
+}
+```
+
+<br/>
+
+Timeout
+------------
+**milliseconds** 안에 테스트 완료 실패 시 테스트 실패.
+```java
+    @Test(timeout = 500)
+    public void methodD() throws InterruptedException{
+        Thread.sleep(1000);
+    }
+```
+
+* 결과
+```
+test timed out after 500 milliseconds
+org.junit.runners.model.TestTimedOutException: test timed out after 500 milliseconds
+```
+
+<br/>
+
+Parameterized Tests With JUnitParams
+--------------------------------------
+*
+
+```java
+
+@RunWith(Parameterized.class)
+public class mytest {
+
+    private final int first;
+    private final int second;
+    private final int expected;
+
+    @Parameterized.Parameters
+    public static Collection<Object[]> data(){
+        return Arrays.asList(new Object[][] {
+                {1, 1, 1},
+                {2, 2, 4},
+                {3, 2, 6}
+        });
+    }
+
+
+    public mytest(final int first, final int second, final int expected){
+        this.first = first;
+        this.second = second;
+        this.expected = expected;
+    }
+
+
+    @Test
+    public void methodA() {
+        System.out.println(String.valueOf(first)+" test run");
+        Assert.assertEquals(first * second, expected);
+    }
+    
+}
+```
 
 
