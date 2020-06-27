@@ -14,6 +14,15 @@
 |@Disable|@Ignore|테스트 클래스 혹은 메서드를 disable|
 |@Tag|@Category|테스트 필터링|
 
+```java
+"message"의 위치가 다름.
+
+// junit 4
+assertEquals("message", expected, actual);
+
+// junit 5
+assertEquals(expected, actual, "message");
+```
 
 
 
